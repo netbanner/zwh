@@ -1,4 +1,4 @@
-package com.zwh.dto;
+package com.zwh;
 
 import java.io.Serializable;
 
