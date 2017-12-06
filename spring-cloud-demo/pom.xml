@@ -8,8 +8,8 @@
   <modules>
     <module>zwh-eureka-server</module>
     <module>zwh-config-server</module>
-    <module>zwh-pay-provider</module>
     <module>zwh-ucenter-provider</module>
+    <module>zwh-pay-provider</module>
   </modules>
   <packaging>pom</packaging>
 

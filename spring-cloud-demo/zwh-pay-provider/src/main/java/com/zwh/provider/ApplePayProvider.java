@@ -1,4 +1,4 @@
-package com.zwh.pay.provider;
+package com.zwh.provider;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
@@ -6,8 +6,8 @@ import com.zwh.BaseResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 
 @RestController
 public class ApplePayProvider {
@@ -15,10 +15,10 @@ public class ApplePayProvider {
     private static final Logger log = LoggerFactory.getLogger(ApplePayProvider.class);
 
 
-    @HystrixCommand(fallbackMethod = "rechargeFallBack", commandProperties = {@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000")})
+    @HystrixCommand(fallbackMethod = "rechargeFallBack", commandProperties = {
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000")})
     @PostMapping(value = "apple/recharge")
-    public BaseResult<Boolean> rechare(Long userId, Double amount) throws Exception {
-
+    public BaseResult<Boolean> recharge(@RequestParam("userId") Long userId, @RequestParam("amount") Double amount) throws Exception {
         log.info("apple recharge {}", amount);
 
         return new BaseResult<Boolean>(true);

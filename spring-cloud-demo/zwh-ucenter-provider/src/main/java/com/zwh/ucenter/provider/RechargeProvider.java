@@ -12,25 +12,29 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
+
 @RestController
 public class RechargeProvider {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RechargeProvider.class);
 
+    @Resource
     private UserManager userManager;
 
+    @Resource
     private ApplePayClient applePayClient;
 
     @HystrixCommand(fallbackMethod = "rechargeFallback")
     @RequestMapping(value = "/recharge",method = RequestMethod.POST)
     public BaseResult<Boolean> recharge(@RequestParam("userId") Long userId,@RequestParam("amount") Double amount,@RequestParam("type") String type){
 
-        BaseResult<Boolean> result = applePayClient.recharge(userId,amount);
+    //    BaseResult<Boolean> result = applePayClient.recharge(userId,amount);
 
 
         User user = userManager.getByUserId(userId);
-        LOGGER.info("user {} recharge  res:{}", user.getUsername(), JSON.toJSONString(result));
-        return result;
+        LOGGER.info("user {} recharge  res:{}", user.getUsername(), "");
+        return null;
     }
 
     private BaseResult<Boolean> rechargeFallback(Long userId,Double amount,String type,Throwable throwable){
